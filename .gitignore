@@ -1,0 +1,27 @@
+# Virtual environment
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data files (too large for git)
+data/*.csv
+
+# Model files (optional)
+models/*.pkl
+
+# Firebase credentials
+firebase-key.json
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
