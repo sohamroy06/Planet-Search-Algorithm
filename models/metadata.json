@@ -1,0 +1,370 @@
+{
+  "clf_feature_cols": [
+    "koi_score",
+    "koi_period",
+    "koi_teq",
+    "koi_insol",
+    "koi_depth",
+    "koi_duration",
+    "koi_prad",
+    "koi_srad",
+    "koi_steff",
+    "ra",
+    "dec",
+    "planet_star_radius_ratio",
+    "period_temp_product"
+  ],
+  "reg_feature_cols": [
+    "koi_score",
+    "koi_period",
+    "koi_teq",
+    "koi_insol",
+    "koi_depth",
+    "koi_duration",
+    "koi_srad",
+    "koi_steff",
+    "ra",
+    "dec",
+    "period_temp_product"
+  ],
+  "clf_models": [
+    {
+      "name": "Logistic Regression",
+      "file": "clf_logistic_regression.joblib",
+      "scaled": true,
+      "metrics": {
+        "accuracy": 0.8662,
+        "precision": 0.6678,
+        "recall": 0.8802,
+        "f1": 0.7594,
+        "roc_auc": 0.9271
+      }
+    },
+    {
+      "name": "Random Forest",
+      "file": "clf_random_forest.joblib",
+      "scaled": false,
+      "metrics": {
+        "accuracy": 0.8782,
+        "precision": 0.7374,
+        "recall": 0.7647,
+        "f1": 0.7508,
+        "roc_auc": 0.9444
+      }
+    },
+    {
+      "name": "Gradient Boosting",
+      "file": "clf_gradient_boosting.joblib",
+      "scaled": false,
+      "metrics": {
+        "accuracy": 0.8808,
+        "precision": 0.7251,
+        "recall": 0.8105,
+        "f1": 0.7654,
+        "roc_auc": 0.944
+      }
+    },
+    {
+      "name": "KNN",
+      "file": "clf_knn.joblib",
+      "scaled": true,
+      "metrics": {
+        "accuracy": 0.8589,
+        "precision": 0.6728,
+        "recall": 0.8017,
+        "f1": 0.7316,
+        "roc_auc": 0.917
+      }
+    },
+    {
+      "name": "Neural Network (MLP)",
+      "file": "clf_neural_network_mlp.joblib",
+      "scaled": true,
+      "metrics": {
+        "accuracy": 0.8819,
+        "precision": 0.7107,
+        "recall": 0.8562,
+        "f1": 0.7767,
+        "roc_auc": 0.9397
+      }
+    },
+    {
+      "name": "SVM",
+      "file": "clf_svm.joblib",
+      "scaled": true,
+      "metrics": {
+        "accuracy": 0.8787,
+        "precision": 0.6901,
+        "recall": 0.8976,
+        "f1": 0.7803,
+        "roc_auc": 0.9398
+      }
+    },
+    {
+      "name": "LightGBM",
+      "file": "clf_lightgbm.joblib",
+      "scaled": false,
+      "metrics": {
+        "accuracy": 0.8871,
+        "precision": 0.7537,
+        "recall": 0.7865,
+        "f1": 0.7697,
+        "roc_auc": 0.9486
+      }
+    },
+    {
+      "name": "Voting Ensemble",
+      "file": "clf_voting_ensemble.joblib",
+      "scaled": true,
+      "metrics": {
+        "accuracy": 0.8923,
+        "precision": 0.7373,
+        "recall": 0.8562,
+        "f1": 0.7923,
+        "roc_auc": 0.9497
+      }
+    }
+  ],
+  "reg_models": [
+    {
+      "name": "Linear Regression",
+      "file": "reg_linear_regression.joblib",
+      "scaled": true,
+      "metrics": {
+        "r2": 0.5925,
+        "mae": 0.7371,
+        "rmse": 2.0356
+      }
+    },
+    {
+      "name": "Ridge Regression",
+      "file": "reg_ridge_regression.joblib",
+      "scaled": true,
+      "metrics": {
+        "r2": 0.5929,
+        "mae": 0.7355,
+        "rmse": 2.0346
+      }
+    },
+    {
+      "name": "Lasso Regression",
+      "file": "reg_lasso_regression.joblib",
+      "scaled": true,
+      "metrics": {
+        "r2": 0.5989,
+        "mae": 0.7196,
+        "rmse": 2.0196
+      }
+    },
+    {
+      "name": "KNN Regressor",
+      "file": "reg_knn_regressor.joblib",
+      "scaled": true,
+      "metrics": {
+        "r2": 0.4979,
+        "mae": 0.7397,
+        "rmse": 2.2596
+      }
+    },
+    {
+      "name": "Random Forest",
+      "file": "reg_random_forest.joblib",
+      "scaled": false,
+      "metrics": {
+        "r2": 0.6969,
+        "mae": 0.3754,
+        "rmse": 1.7556
+      }
+    },
+    {
+      "name": "Gradient Boosting",
+      "file": "reg_gradient_boosting.joblib",
+      "scaled": false,
+      "metrics": {
+        "r2": 0.6643,
+        "mae": 0.4041,
+        "rmse": 1.8475
+      }
+    },
+    {
+      "name": "LightGBM",
+      "file": "reg_lightgbm.joblib",
+      "scaled": false,
+      "metrics": {
+        "r2": 0.666,
+        "mae": 0.4777,
+        "rmse": 1.843
+      }
+    },
+    {
+      "name": "Neural Network (MLP)",
+      "file": "reg_neural_network_mlp.joblib",
+      "scaled": true,
+      "metrics": {
+        "r2": 0.6353,
+        "mae": 0.5902,
+        "rmse": 1.9256
+      }
+    }
+  ],
+  "medians": {
+    "koi_score": 0.334,
+    "koi_period": 9.75283067,
+    "koi_teq": 878.0,
+    "koi_insol": 141.6,
+    "koi_depth": 421.1,
+    "koi_duration": 3.7926,
+    "koi_prad": 2.39,
+    "koi_srad": 1.0,
+    "koi_steff": 5767.0,
+    "ra": 292.261125,
+    "dec": 43.6775035,
+    "planet_star_radius_ratio": 2.39,
+    "period_temp_product": 8525.20158169
+  },
+  "iqr_bounds": {
+    "koi_score": {
+      "lower": -2.985,
+      "upper": 3.98
+    },
+    "koi_period": {
+      "lower": -111.21079601300002,
+      "upper": 154.65965780975003
+    },
+    "koi_teq": {
+      "lower": -1845.5,
+      "upper": 3751.0
+    },
+    "koi_insol": {
+      "lower": -2331.7525000000005,
+      "upper": 3160.7100000000005
+    },
+    "koi_depth": {
+      "lower": -3358.125,
+      "upper": 4866.700000000001
+    },
+    "koi_duration": {
+      "lower": -9.078499999999998,
+      "upper": 17.792749999999998
+    },
+    "koi_prad": {
+      "lower": -33.6175,
+      "upper": 48.16
+    },
+    "koi_srad": {
+      "lower": -0.5959999999999999,
+      "upper": 2.74475
+    },
+    "koi_steff": {
+      "lower": 3035.0,
+      "upper": 8397.0
+    }
+  },
+  "feature_stats": {
+    "koi_score": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.4576,
+      "median": 0.334,
+      "std": 0.4409
+    },
+    "koi_period": {
+      "min": 0.2418,
+      "max": 154.6597,
+      "mean": 36.5038,
+      "median": 9.7528,
+      "std": 52.9267
+    },
+    "koi_teq": {
+      "min": 25.0,
+      "max": 3751.0,
+      "mean": 1056.8593,
+      "median": 878.0,
+      "std": 717.013
+    },
+    "koi_insol": {
+      "min": 0.0,
+      "max": 3160.71,
+      "mean": 701.3712,
+      "median": 141.6,
+      "std": 1073.534
+    },
+    "koi_depth": {
+      "min": 0.0,
+      "max": 4866.7,
+      "mean": 1306.5735,
+      "median": 421.1,
+      "std": 1765.8009
+    },
+    "koi_duration": {
+      "min": 0.052,
+      "max": 17.7927,
+      "mean": 5.1923,
+      "median": 3.7926,
+      "std": 4.1507
+    },
+    "koi_prad": {
+      "min": 0.08,
+      "max": 48.16,
+      "mean": 11.2331,
+      "median": 2.39,
+      "std": 16.4519
+    },
+    "koi_srad": {
+      "min": 0.109,
+      "max": 2.7447,
+      "mean": 1.191,
+      "median": 1.0,
+      "std": 0.5791
+    },
+    "koi_steff": {
+      "min": 3035.0,
+      "max": 8397.0,
+      "mean": 5700.8152,
+      "median": 5767.0,
+      "std": 738.2894
+    },
+    "ra": {
+      "min": 279.8527,
+      "max": 301.7208,
+      "mean": 292.0602,
+      "median": 292.2611,
+      "std": 4.7667
+    },
+    "dec": {
+      "min": 36.5774,
+      "max": 52.336,
+      "mean": 43.8104,
+      "median": 43.6775,
+      "std": 3.6012
+    },
+    "planet_star_radius_ratio": {
+      "min": 0.1457,
+      "max": 240.8,
+      "mean": 9.8003,
+      "median": 2.39,
+      "std": 15.3211
+    },
+    "period_temp_product": {
+      "min": 307.6192,
+      "max": 308855.3366,
+      "mean": 17794.7801,
+      "median": 8525.2016,
+      "std": 23432.752
+    }
+  },
+  "dataset_info": {
+    "total_rows": 9564,
+    "confirmed": 2293,
+    "false_positive": 5023,
+    "candidate": 2248
+  },
+  "regression_target_stats": {
+    "count": 2293,
+    "mean": 2.8536,
+    "median": 2.17,
+    "std": 3.0416,
+    "min": 0.27,
+    "max": 48.16
+  }
+}
