@@ -33,11 +33,11 @@
       "file": "clf_logistic_regression.joblib",
       "scaled": true,
       "metrics": {
-        "accuracy": 0.8662,
-        "precision": 0.6678,
-        "recall": 0.8802,
-        "f1": 0.7594,
-        "roc_auc": 0.9271
+        "accuracy": 0.9884,
+        "precision": 0.9933,
+        "recall": 0.9695,
+        "f1": 0.9813,
+        "roc_auc": 0.9951
       }
     },
     {
@@ -45,11 +45,11 @@
       "file": "clf_random_forest.joblib",
       "scaled": false,
       "metrics": {
-        "accuracy": 0.8782,
-        "precision": 0.7374,
-        "recall": 0.7647,
-        "f1": 0.7508,
-        "roc_auc": 0.9444
+        "accuracy": 0.9904,
+        "precision": 1.0,
+        "recall": 0.9695,
+        "f1": 0.9845,
+        "roc_auc": 0.9942
       }
     },
     {
@@ -57,11 +57,11 @@
       "file": "clf_gradient_boosting.joblib",
       "scaled": false,
       "metrics": {
-        "accuracy": 0.8808,
-        "precision": 0.7251,
-        "recall": 0.8105,
-        "f1": 0.7654,
-        "roc_auc": 0.944
+        "accuracy": 0.987,
+        "precision": 0.9911,
+        "recall": 0.9673,
+        "f1": 0.9791,
+        "roc_auc": 0.9962
       }
     },
     {
@@ -69,11 +69,11 @@
       "file": "clf_knn.joblib",
       "scaled": true,
       "metrics": {
-        "accuracy": 0.8589,
-        "precision": 0.6728,
-        "recall": 0.8017,
-        "f1": 0.7316,
-        "roc_auc": 0.917
+        "accuracy": 0.985,
+        "precision": 0.9955,
+        "recall": 0.9564,
+        "f1": 0.9756,
+        "roc_auc": 0.9914
       }
     },
     {
@@ -81,11 +81,11 @@
       "file": "clf_neural_network_mlp.joblib",
       "scaled": true,
       "metrics": {
-        "accuracy": 0.8819,
-        "precision": 0.7107,
-        "recall": 0.8562,
-        "f1": 0.7767,
-        "roc_auc": 0.9397
+        "accuracy": 0.9898,
+        "precision": 0.9955,
+        "recall": 0.9717,
+        "f1": 0.9835,
+        "roc_auc": 0.994
       }
     },
     {
@@ -93,11 +93,11 @@
       "file": "clf_svm.joblib",
       "scaled": true,
       "metrics": {
-        "accuracy": 0.8787,
-        "precision": 0.6901,
-        "recall": 0.8976,
-        "f1": 0.7803,
-        "roc_auc": 0.9398
+        "accuracy": 0.9891,
+        "precision": 1.0,
+        "recall": 0.9651,
+        "f1": 0.9823,
+        "roc_auc": 0.9925
       }
     },
     {
@@ -105,11 +105,11 @@
       "file": "clf_lightgbm.joblib",
       "scaled": false,
       "metrics": {
-        "accuracy": 0.8871,
-        "precision": 0.7537,
-        "recall": 0.7865,
-        "f1": 0.7697,
-        "roc_auc": 0.9486
+        "accuracy": 0.9891,
+        "precision": 0.9978,
+        "recall": 0.9673,
+        "f1": 0.9823,
+        "roc_auc": 0.996
       }
     },
     {
@@ -117,11 +117,11 @@
       "file": "clf_voting_ensemble.joblib",
       "scaled": true,
       "metrics": {
-        "accuracy": 0.8923,
-        "precision": 0.7373,
-        "recall": 0.8562,
-        "f1": 0.7923,
-        "roc_auc": 0.9497
+        "accuracy": 0.9898,
+        "precision": 1.0,
+        "recall": 0.9673,
+        "f1": 0.9834,
+        "roc_auc": 0.995
       }
     }
   ],

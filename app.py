@@ -18,6 +18,7 @@ import json
 import numpy as np
 import joblib
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 
 # ─── Paths ────────────────────────────────────────────────────────────────────
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -49,6 +50,7 @@ print(f"  Loaded {len(clf_models)} classifiers, {len(reg_models)} regressors")
 
 # ─── Flask app ────────────────────────────────────────────────────────────────
 app = Flask(__name__)
+CORS(app)
 
 
 # ─── Helper: auto-derive equilibrium temperature ─────────────────────────────
@@ -87,8 +89,6 @@ def predict(data):
     koi_duration = _float(data.get("koi_duration"))
     koi_steff    = _float(data.get("koi_steff"))
     koi_srad     = _float(data.get("koi_srad"))
-    ra           = _float(data.get("ra"))
-    dec          = _float(data.get("dec"))
 
     required = {
         "Orbital Period (days)": koi_period,
@@ -96,17 +96,24 @@ def predict(data):
         "Transit Duration (hrs)": koi_duration,
         "Stellar Eff. Temp (K)": koi_steff,
         "Stellar Radius (R☉)": koi_srad,
-        "RA (°)": ra,
-        "Dec (°)": dec,
     }
     missing = [k for k, v in required.items() if v is None]
     if missing:
         return {"error": f"Missing required fields: {', '.join(missing)}"}
 
-    # ── Optional inputs (auto-derive if not given) ──
+    # ── Optional inputs (auto-derive / default if not given) ──
+    ra = _float(data.get("ra"))
+    if ra is None:
+        ra = MEDIANS.get("ra", 291.0)
+    dec = _float(data.get("dec"))
+    if dec is None:
+        dec = MEDIANS.get("dec", 44.0)
+
     koi_score = _float(data.get("koi_score"))
     if koi_score is None:
         koi_score = MEDIANS.get("koi_score", 0.5)
+
+    koi_ror = _float(data.get("koi_ror"))  # planet/star radius ratio
 
     koi_teq = _float(data.get("koi_teq"))
     teq_auto = koi_teq is None
@@ -148,11 +155,22 @@ def predict(data):
     user_prad = _float(data.get("koi_prad"))  # optional user-provided radius
     period_temp = koi_period * koi_teq
 
+    R_SUN_IN_REARTH = 109.076
+
+    # If koi_ror (planet/star radius ratio) is given, use it directly —
+    # it's the most accurate way to derive planet radius from transit data.
+    if koi_ror is not None and koi_ror > 0:
+        ror_prad = round(koi_ror * raw_srad * R_SUN_IN_REARTH, 4)
+    else:
+        ror_prad = None
+
     # Physics-based estimate using RAW (uncapped) depth & stellar radius
     # R_p = R_star × √(depth/1e6) × 109.076 R⊕/R☉
-    R_SUN_IN_REARTH = 109.076
-    physics_prad = round(raw_srad * (raw_depth / 1e6) ** 0.5 * R_SUN_IN_REARTH, 4)
-    physics_prad = max(physics_prad, 0.01)
+    depth_prad = round(raw_srad * (raw_depth / 1e6) ** 0.5 * R_SUN_IN_REARTH, 4)
+    depth_prad = max(depth_prad, 0.01)
+
+    # Prefer ror-based radius (direct measurement) over depth-based (approximation)
+    physics_prad = ror_prad if ror_prad is not None else depth_prad
 
     # ML regression predictions (supplementary)
     reg_vals = {

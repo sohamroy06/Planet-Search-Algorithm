@@ -104,7 +104,10 @@ print(f"  Disposition counts:\n{df_clean['koi_disposition'].value_counts().to_st
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\n[2/5] Training classification models …")
 
-df_model = df_clean.copy()
+# Use only CONFIRMED vs FALSE POSITIVE — exclude CANDIDATE to avoid
+# treating unresolved candidates as false positives (which biases against
+# small planets that are real but not yet confirmed).
+df_model = df_clean[df_clean["koi_disposition"].isin(["CONFIRMED", "FALSE POSITIVE"])].copy()
 df_model["target"] = (df_model["koi_disposition"] == "CONFIRMED").astype(int)
 
 clf_feature_cols = [c for c in df_model.columns if c not in ["koi_disposition", "target"]]
@@ -156,9 +159,9 @@ def _train_clf(name, model, scaled):
 # Scaled models: LR, KNN, MLP, SVM, Voting Ensemble
 # Unscaled models: RF, GB, LightGBM
 _train_clf("Logistic Regression",
-           LogisticRegression(random_state=42, max_iter=1000), scaled=True)
+           LogisticRegression(random_state=42, max_iter=1000, class_weight="balanced"), scaled=True)
 _train_clf("Random Forest",
-           RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1), scaled=False)
+           RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1, class_weight="balanced"), scaled=False)
 _train_clf("Gradient Boosting",
            GradientBoostingClassifier(n_estimators=100, random_state=42), scaled=False)
 _train_clf("KNN",
@@ -168,21 +171,22 @@ _train_clf("Neural Network (MLP)",
                          random_state=42, early_stopping=True, validation_fraction=0.1),
            scaled=True)
 _train_clf("SVM",
-           SVC(kernel="rbf", probability=True, random_state=42), scaled=True)
+           SVC(kernel="rbf", probability=True, random_state=42, class_weight="balanced"), scaled=True)
 _train_clf("LightGBM",
-           LGBMClassifier(n_estimators=100, random_state=42, verbose=-1, n_jobs=-1), scaled=False)
+           LGBMClassifier(n_estimators=100, random_state=42, verbose=-1, n_jobs=-1,
+                          is_unbalance=True), scaled=False)
 
 # Voting Ensemble — fresh estimators, trained on SCALED data (exact notebook)
 voting_clf = VotingClassifier(
     estimators=[
-        ("lr",  LogisticRegression(random_state=42, max_iter=1000)),
-        ("rf",  RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)),
+        ("lr",  LogisticRegression(random_state=42, max_iter=1000, class_weight="balanced")),
+        ("rf",  RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1, class_weight="balanced")),
         ("gb",  GradientBoostingClassifier(n_estimators=100, random_state=42)),
         ("knn", KNeighborsClassifier(n_neighbors=7)),
         ("mlp", MLPClassifier(hidden_layer_sizes=(128, 64, 32), max_iter=500,
                               random_state=42, early_stopping=True, validation_fraction=0.1)),
-        ("svm", SVC(kernel="rbf", probability=True, random_state=42)),
-        ("lgb", LGBMClassifier(n_estimators=100, random_state=42, verbose=-1)),
+        ("svm", SVC(kernel="rbf", probability=True, random_state=42, class_weight="balanced")),
+        ("lgb", LGBMClassifier(n_estimators=100, random_state=42, verbose=-1, is_unbalance=True)),
     ],
     voting="soft",
     n_jobs=-1,
